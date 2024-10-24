@@ -5,8 +5,12 @@ class SimpleLinearRegression:
     def __init__(self):
         self.teta1 = None
         self.teta0 = None
+        self.df = pd.read_csv("Hands-on 2/dataset.csv")
     
-    def fit(self, X, y):
+    def fit(self):
+        X = self.df["Sales"]
+        y = self.df["Advertising"]
+
         x_2_suma = (X**2).sum()
         y_suma = y.sum()
         x_suma = X.sum()
@@ -21,19 +25,19 @@ class SimpleLinearRegression:
     
     def predict(self, X):
         return self.teta1 * X + self.teta0
+
+    def get_X(self):
+        return self.df["Sales"]
+
+    def get_y(self):
+        return self.df["Advertising"]
     
 
 
 def main():
-    df = pd.read_csv("Hands-on 2/dataset.csv")
-
-    print(df)
-    X = df["Sales"]
-    y = df["Advertising"]
 
     modelo = SimpleLinearRegression()
-
-    modelo.fit(X, y)
+    modelo.fit()
 
     while True:
         entrada = input("Ingresa un valor para predecir (escriba 'fin' para finalizar): ")
@@ -55,7 +59,7 @@ def main():
     sales = pd.Series([0,2000])
     advertising = modelo.predict(sales)
 
-    plt.scatter(X, y, color="blue", label='Data', marker='o')
+    plt.scatter(modelo.get_X(), modelo.get_y(), color="blue", label='Data', marker='o')
     plt.plot(sales, advertising, color='red', label='Modelo', linewidth=2)
 
     plt.title('Caso Benetton')
@@ -64,11 +68,7 @@ def main():
     plt.legend()
     plt.grid(True)
 
-    # Mostrar el gráfico
     plt.show()
 
-
-
-# Punto de entrada del programa
 if __name__ == "__main__":
     main()
