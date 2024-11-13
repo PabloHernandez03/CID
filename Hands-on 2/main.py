@@ -37,9 +37,9 @@ class SimpleLinearRegression:
     
 
 def main():
-    archivo = "Hands-on 2/dataset.csv"
-    x_column = "Advertising"
-    y_column = "Sales"
+    archivo = "Hands-on 2/nuevo_dataset.csv"
+    x_column = "X"
+    y_column = "Y"
 
     modelo = SimpleLinearRegression(archivo, x_column, y_column)
     modelo.fit()
@@ -57,7 +57,7 @@ def main():
         except ValueError:
             print("Error: Por favor, ingresa un número válido.")
 
-    sales = pd.Series([0, 2000])
+    sales = pd.Series([0, 20])
     advertising = modelo.predict(sales)
 
     plt.scatter(modelo.get_X(), modelo.get_y(), color="blue", label='Data', marker='o')
